@@ -3,9 +3,11 @@ import os
 import json
 from datetime import datetime
 import random
+from dotenv import load_dotenv
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'
+load_dotenv()
+app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
 # Load greeting messages
 morning_greetings = [
@@ -108,7 +110,7 @@ def home():
 def login():
     if request.method == 'POST':
         password = request.form.get('password')
-        if password == 'your_password_here':
+        if password == os.getenv('LOGIN_PASSWORD'):
             session['logged_in'] = True
             return redirect(url_for('home'))
         else:

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #F5E6DA;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .photo {
+            width: 50%; /* Adjusted size to make it consistent */
+            max-width: 300px; /* Ensured it doesn't take the entire page */
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .greeting {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            margin: 20px 0;
+            color: #333;
+        }
+        .message {
+            font-size: 1.2rem;
+            color: #555;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .nav-buttons a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #F0DADA;
+            color: #333;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .nav-buttons a:hover {
+            background-color: #e0c0c0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <img src="/static/images/{{ random_photo }}" alt="Random Photo" class="photo">
+    <div class="greeting">{{ greeting }}</div>
+    <div class="message">Message from husband: {{ random_message }}</div>
+    <div class="nav-buttons">
+        <a href="/mood">Mood Tracker</a>
+        <a href="/diary">Diary</a>
+        {% if session.get('logged_in') %}
+            <a href="/logout">Log Out</a>
+        {% else %}
+            <a href="/login">Log In</a>
+        {% endif %}
+    </div>
+</body>
+</html>

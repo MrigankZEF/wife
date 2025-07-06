@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #F5E6DA;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        h1 {
+            font-family: 'Lora', serif;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 80%;
+            max-width: 500px;
+        }
+        label {
+            font-size: 1.2rem;
+            color: #555;
+        }
+        input, textarea {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #F0DADA;
+            color: #333;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        button:hover {
+            background-color: #e0c0c0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 500px;
+        }
+        li {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            position: relative;
+            padding-right: 50px;
+        }
+        .emoji-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .emoji-buttons button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .emoji-buttons button:hover {
+            transform: scale(1.2);
+        }
+        .emoji-buttons button.selected {
+            transform: scale(1.2);
+            border: 2px solid #333;
+            border-radius: 50%;
+        }
+        .back-button {
+            margin-top: 20px;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #F0DADA;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .back-button a:hover {
+            background-color: #e0c0c0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .action-buttons {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 5px;
+        }
+        .action-buttons button {
+            font-size: 1rem;
+            padding: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .action-buttons button:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>How are you feeling today?</h1>
+    <form method="POST">
+        <div class="emoji-buttons">
+            <button type="button" onclick="selectMood('😄')">😄</button>
+            <button type="button" onclick="selectMood('😊')">😊</button>
+            <button type="button" onclick="selectMood('😐')">😐</button>
+            <button type="button" onclick="selectMood('😢')">😢</button>
+            <button type="button" onclick="selectMood('😠')">😠</button>
+        </div>
+        <input type="hidden" id="selectedMood" name="mood">
+        <label for="note">Why are you feeling this way?</label>
+        <textarea id="note" name="note" placeholder="Write your thoughts here..."></textarea>
+        <button type="submit">Save</button>
+    </form>
+    <div class="back-button">
+        <a href="/">Back to Home</a>
+    </div>
+    <h2>Past Moods</h2>
+    <ul>
+        {% for mood in mood_data %}
+            <li>
+                {{ mood.date }} - {{ mood.mood }}: {{ mood.note }}
+                <div class="action-buttons">
+                    <form method="POST" action="/delete_mood" style="display:inline;">
+                        <input type="hidden" name="date" value="{{ mood.date }}">
+                        <input type="hidden" name="mood" value="{{ mood.mood }}">
+                        <button type="submit">❌</button>
+                    </form>
+                    <form method="GET" action="/edit_mood" style="display:inline;">
+                        <input type="hidden" name="date" value="{{ mood.date }}">
+                        <input type="hidden" name="mood" value="{{ mood.mood }}">
+                        <input type="hidden" name="note" value="{{ mood.note }}">
+                        <button type="submit">✏️</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <script>
+        function selectMood(mood) {
+            const buttons = document.querySelectorAll('.emoji-buttons button');
+            buttons.forEach(button => button.classList.remove('selected'));
+            const selectedButton = Array.from(buttons).find(button => button.textContent === mood);
+            if (selectedButton) {
+                selectedButton.classList.add('selected');
+            }
+            document.getElementById('selectedMood').value = mood;
+        }
+    </script>
+</body>
+</html>

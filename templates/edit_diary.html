@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Diary Entry</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #F5E6DA;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        h1 {
+            font-family: 'Lora', serif;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 80%;
+            max-width: 500px;
+        }
+        label {
+            font-size: 1.2rem;
+            color: #555;
+        }
+        textarea {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            width: 100%;
+            min-height: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #F0DADA;
+            color: #333;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        button:hover {
+            background-color: #e0c0c0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .back-button {
+            margin-top: 20px;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #F0DADA;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .back-button a:hover {
+            background-color: #e0c0c0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Diary Entry</h1>
+    <form method="POST" action="/edit_diary">
+        <input type="hidden" name="date" value="{{ date }}">
+        <label for="new_entry">Diary Entry:</label>
+        <textarea id="new_entry" name="new_entry" rows="5" cols="50">{{ entry }}</textarea>
+        <br>
+        <button type="submit">Save Changes</button>
+    </form>
+    <div class="back-button">
+        <a href="/diary">Back to Diary</a>
+    </div>
+</body>
+</html>

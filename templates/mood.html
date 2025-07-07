@@ -23,6 +23,7 @@
             font-size: 2rem;
             color: #333;
             margin-bottom: 20px;
+            text-align: center; /* Centered the heading for better alignment */
         }
         form {
             display: flex;
@@ -70,6 +71,12 @@
             margin-bottom: 10px;
             position: relative;
             padding-right: 50px;
+        }
+        .emoji-container {
+            display: flex;
+            justify-content: space-around; /* Adjusted spacing */
+            flex-wrap: wrap; /* Ensured all emojis fit on the screen */
+            gap: 10px;
         }
         .emoji-buttons {
             display: flex;
@@ -130,12 +137,14 @@
 <body>
     <h1>How are you feeling today?</h1>
     <form method="POST">
-        <div class="emoji-buttons">
-            <button type="button" onclick="selectMood('😄')">😄</button>
-            <button type="button" onclick="selectMood('😊')">😊</button>
-            <button type="button" onclick="selectMood('😐')">😐</button>
-            <button type="button" onclick="selectMood('😢')">😢</button>
-            <button type="button" onclick="selectMood('😠')">😠</button>
+        <div class="emoji-container">
+            <div class="emoji-buttons">
+                <button type="button" onclick="selectMood('😄')">😄</button>
+                <button type="button" onclick="selectMood('😊')">😊</button>
+                <button type="button" onclick="selectMood('😐')">😐</button>
+                <button type="button" onclick="selectMood('😢')">😢</button>
+                <button type="button" onclick="selectMood('😠')">😠</button>
+            </div>
         </div>
         <input type="hidden" id="selectedMood" name="mood">
         <label for="note">Why are you feeling this way?</label>

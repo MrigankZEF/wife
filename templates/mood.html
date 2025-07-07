@@ -80,7 +80,9 @@
         }
         .emoji-buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Center emojis for better alignment */
+            flex-wrap: wrap; /* Allow emojis to wrap onto multiple lines */
+            gap: 10px; /* Add spacing between emojis */
         }
         .emoji-buttons button {
             background: none;
